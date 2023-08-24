@@ -2,23 +2,29 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Sonarqube Scan') {
             steps {
-                echo 'Hello from build stage'
-                echo 'Hello from build stage 2'
+                echo 'Scanning ...'
             }
         }
-        stage('Deploy') {
+        stage('Build App') {
             steps {
-                echo 'Hello from deploy stage'
+                sh 'npm -v'
+                sh 'node -v'
+                sh 'npm install'
             }
         }
-        stage('Test') {
+        stage('Build Container') {
             steps {
                 echo 'Hello from test stage'
             }
         }
-        stage('Release') {
+        stage('Push Container') {
+            steps {
+                echo 'Hello from test stage'
+            }
+        }
+        stage('Deploy') {
             steps {
                 echo 'Hello from release stage'
             }
