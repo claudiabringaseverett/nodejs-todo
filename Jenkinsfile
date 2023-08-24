@@ -9,9 +9,9 @@ pipeline {
         }
         stage('Build App') {
             steps {
-                sh 'npm install'
                 sh 'npm -v'
                 sh 'node -v'
+                sh 'npm install'
             }
         }
         stage('Build Container') {
