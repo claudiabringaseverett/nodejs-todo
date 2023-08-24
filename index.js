@@ -9,9 +9,9 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 
 //placeholders for added task
-var task = ["buy socks", "practise with nodejs"];
+var task = ["buy socks", "practice with nodejs"];
 //placeholders for removed task
-var complete = ["finish jquery"];
+var complete = ["finish reading", "finish studying"];
 
 //post route for adding new task 
 app.post("/addtask", function(req, res) {
