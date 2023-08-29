@@ -27,9 +27,16 @@ pipeline {
             }
         }
 
-        withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
-            sh 'docker login -u claubr20 -p $PASSWORD'
+        stage('Access Docker Hub') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
+                        sh 'docker login -u claubr20 -p $PASSWORD'
+                    }
+                }
+            }
         }
+
         stage('Push Image to Docker Hub') {
             steps {
                 sh 'docker push claubr20/nodejs-app:nodejs-app'
