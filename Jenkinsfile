@@ -26,20 +26,20 @@ pipeline {
                 sh 'docker tag nodejs-app claubr20/nodejs-app:nodejs-app'
             }
         }
-
-        // withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
-        //     sh 'docker login -u claubr20 -p $PASSWORD'
-        // }
-
-        // stage('Push Image to Docker Hub') {
-        //     steps {
-        //         sh 'docker push claubr20/nodejs-app:nodejs-app'
-        //     }
-        // }
-        // stage('Deployment to Kubernetes') {
-        //     steps {
-        //         sh 'kubectl apply -f deployment.yaml'
-        //     }
-        // }
+        environment {
+            withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
+                sh 'docker login -u claubr20 -p $PASSWORD'
+            }
+        }
+            stage('Push Image to Docker Hub') {
+                steps {
+                    sh 'docker push claubr20/nodejs-app:nodejs-app'
+                }
+            }
+            // stage('Deployment to Kubernetes') {
+            //     steps {
+            //         sh 'kubectl apply -f deployment.yaml'
+            //     }
+            // }
     }
 }
