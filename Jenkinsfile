@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Git Clone') {
             steps {
-                git credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/claudiabringaseverett/nodejs-todo'
+                git credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/claudiabringaseverett/nodejs-todo.git'
             }
         }
         stage('Sonarqube Scan') {
