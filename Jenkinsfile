@@ -42,10 +42,10 @@ pipeline {
                 sh 'docker push claubr20/nodejs-app:nodejs-app'
             }
         }
-            // stage('Deployment to Kubernetes') {
-            //     steps {
-            //         sh 'kubectl apply -f deployment.yaml'
-            //     }
-            // }
+        stage('Deployment to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f deployment.yaml'
+            }
+        }
     }
 }
