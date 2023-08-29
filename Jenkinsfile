@@ -1,7 +1,14 @@
 pipeline {
     agent any
 
+    tools { nodejs 'node' }
+
     stages {
+        stage('Git Clone') {
+            steps {
+                git credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/claudiabringaseverett/nodejs-todo'
+            }
+        }
         stage('Sonarqube Scan') {
             steps {
                 echo 'Scanning ...'
@@ -14,19 +21,27 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Build Container') {
+        stage('Docker Build') {
             steps {
-                echo 'Hello from test stage'
+                sh 'docker version'
+                sh 'docker build -t nodejs-app .'
+                sh 'docker image list'
+                sh 'docker tag nodejs-app claubr20/nodejs-app:nodejs-app'
             }
         }
-        stage('Push Container') {
+
+        withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
+            sh 'docker login -u claubr20 -p $PASSWORD'
+        }
+
+        stage('Push Image to Docker Hub') {
             steps {
-                echo 'Hello from test stage'
+                sh 'docker push claubr20/nodejs-app:nodejs-app'
             }
         }
-        stage('Deploy') {
+        stage('Deployment to Kubernetes') {
             steps {
-                echo 'Hello from release stage'
+                sh 'kubectl apply -f deployment.yaml'
             }
         }
     }
