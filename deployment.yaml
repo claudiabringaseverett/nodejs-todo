@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: claubr20-todo
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: claubr20-todo
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nodejs-todo
-          image: claubr20/nodejs-app:nodejs-app
+          image: claubr20/nodejs-app:v1
           ports:
             - containerPort: 3000
           env:
