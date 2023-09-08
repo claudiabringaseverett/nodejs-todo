@@ -16,10 +16,10 @@ spec:
         - name: nodejs-todo
           image: claubr20/nodejs-app:latest
           ports:
-            - containerPort: 3000
+            - containerPort: 8000
           env:
             - name: PORT
-              value: "3000"
+              value: "8000"
 ---
 apiVersion: v1
 kind: Service
@@ -28,7 +28,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-    - port: 3000
-      targetPort: 3000
+    - port: 80
+      targetPort: 8000
   selector:
     app: claubr20-todo
