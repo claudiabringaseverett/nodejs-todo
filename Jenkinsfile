@@ -44,7 +44,7 @@ pipeline {
         }
         stage('Deployment to Kubernetes') {
             steps {
-                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f deployment-${BUILD_NUMBER}.yaml'
             }
         }
     }
