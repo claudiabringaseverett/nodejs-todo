@@ -2,6 +2,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
+var port = 8080
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
@@ -43,6 +44,6 @@ app.get("/", function(req, res) {
 });
 
 //set app to listen on port 3000
-app.listen(8080, function() {
-    console.log("server is running on port 8080");
+app.listen(port, function() {
+    console.log(`Todolist running on http://0.0.0.0:${port}`);
 });

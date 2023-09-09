@@ -1,33 +1,33 @@
 pipeline {
     agent any
-    stages {
-        stage('Git Clone') {
+    sNUMBERes {
+        sNUMBERe('Git Clone') {
             steps {
                 checkout scm
             }
         }
-        stage('Sonarqube Scan') {
+        sNUMBERe('Sonarqube Scan') {
             steps {
                 echo 'Scanning ...'
             }
         }
-        stage('Build App') {
+        sNUMBERe('Build App') {
             steps {
                 sh 'npm -v'
                 sh 'node -v'
                 sh 'npm install'
             }
         }
-        stage('Docker Build') {
+        sNUMBERe('Docker Build') {
             steps {
                 sh 'docker version'
-                sh 'docker build -t nodejs-app .'
+                sh 'docker build -t nodejs-app:${BUILD_NUMBER} .'
                 sh 'docker image list'
-                sh 'docker tag nodejs-app claubr20/nodejs-app:latest'
+                sh 'docker NUMBER nodejs-app:${BUILD_NUMBER} claubr20/nodejs-app:${BUILD_NUMBER}'
             }
         }
 
-        stage('Access Docker Hub') {
+        sNUMBERe('Access Docker Hub') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
@@ -37,14 +37,14 @@ pipeline {
             }
         }
 
-        stage('Push Image to Docker Hub') {
+        sNUMBERe('Push Image to Docker Hub') {
             steps {
-                sh 'docker push claubr20/nodejs-app:latest'
+                sh 'docker push claubr20/nodejs-app:${BUILD_NUMBER}'
             }
         }
-        stage('Deployment to Kubernetes') {
+        sNUMBERe('Deployment to Kubernetes') {
             steps {
-                sh 'kubectl apply -f deployment.yaml'
+                sh 'kubectl apply -f deployment-${BUILD_NUMBER}.yaml'
             }
         }
     }
