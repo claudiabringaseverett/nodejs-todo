@@ -23,7 +23,7 @@ pipeline {
                 sh 'docker version'
                 sh 'docker build -t nodejs-app:${BUILD_NUMBER} .'
                 sh 'docker image list'
-                sh 'docker tag nodejs-app:${BUILD_TAG} claubr20/nodejs-app:${BUILD_NUMBER}'
+                sh 'docker tag nodejs-app:${BUILD_NUMBER} claubr20/nodejs-app:${BUILD_NUMBER}'
             }
         }
 
