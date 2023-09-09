@@ -21,9 +21,9 @@ pipeline {
         stage('Docker Build') {
             steps {
                 sh 'docker version'
-                sh 'docker build -t nodejs-app:${BUILD_NUMBER} .'
+                sh 'docker build -t nodejs-app .'
                 sh 'docker image list'
-                sh 'docker tag nodejs-app:${BUILD_NUMBER} claubr20/nodejs-app:${BUILD_NUMBER}'
+                sh 'docker tag nodejs-app claubr20/nodejs-app:latest'
             }
         }
 
@@ -39,7 +39,7 @@ pipeline {
 
         stage('Push Image to Docker Hub') {
             steps {
-                sh 'docker push claubr20/nodejs-app:${BUILD_NUMBER}'
+                sh 'docker push claubr20/nodejs-app:latest'
             }
         }
         stage('Deployment to Kubernetes') {
